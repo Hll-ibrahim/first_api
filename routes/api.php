@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('get_data',[CardController::class, 'getData']);
+Route::post('add_data',[CardController::class, 'addData']);
+Route::put('update_data',[CardController::class, 'updateData']);
+Route::delete('delete_data/{id}',[CardController::class, 'deleteData']);
