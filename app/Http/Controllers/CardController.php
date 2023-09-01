@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Card;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class CardController extends Controller
 {
     public function getData() {
-        return Card::all();
+
+//        return Card::all();
+        $breeds = Http::get('https://dog.ceo/api/breeds/list')['message']; // fetching data
+        foreach ($breeds as $bread){
+            $card = new Card();
+            $card->title = $bread;
+            $card->container = 'dog breads';
+            $card->save();
+        }
+        return $breeds;
     }
     public function addData(Request $request) {
 
